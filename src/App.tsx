@@ -865,9 +865,9 @@ export default function App() {
             : "bg-transparent border-b border-transparent"
         }`}
       >
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 py-3 flex items-center justify-between gap-4">
+        <div className="mx-auto max-w-[1440px] px-4 sm:px-6 xl:px-6 2xl:px-10 py-3 flex items-center justify-between gap-3 2xl:gap-5">
           {/* Left: Wordmark + hairline + single-row nav at 1280px+ */}
-          <div className="flex items-center gap-4 min-w-0">
+          <div className="flex items-center gap-3 2xl:gap-4 flex-1 min-w-0">
             <a
               href="#home"
               onClick={(e) => {
@@ -881,59 +881,61 @@ export default function App() {
 
             <span
               aria-hidden="true"
-              className="hidden xl:block h-px w-5 bg-[#B8925A]/40 shrink-0"
+              className="hidden 2xl:block h-px w-5 bg-[#B8925A]/40 shrink-0"
             />
 
             {/* Single-row uppercase links at 1280px and up */}
             <nav
               aria-label="Primary navigation"
-              className="hidden xl:flex items-center gap-3.5 text-[11px] uppercase tracking-[0.14em]"
+              className="hidden xl:flex items-center gap-2.5 2xl:gap-3.5 min-w-0 flex-1 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden text-[10.5px] 2xl:text-[11px] uppercase tracking-[0.1em] 2xl:tracking-[0.14em]"
             >
-              {[...leftNavLinks, ...rightNavLinks].map((item) => {
-                const targetView = item.targetView;
-                const isActive = targetView
-                  ? activeView === targetView
-                  : activeView === "landing" && activeSection === item.id;
-                return targetView ? (
-                  <a
-                    key={item.id}
-                    href={pathnameForView(targetView)}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      switchWorkspaceView(targetView);
-                    }}
-                    className={`py-1 uppercase tracking-[0.14em] whitespace-nowrap shrink-0 transition-colors ${
-                      isActive ? "text-[#E6CFA3]" : "text-[#F5EDE1]/75 hover:text-[#F5EDE1]"
-                    }`}
-                  >
-                    {item.label}
-                  </a>
-                ) : (
-                  <a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection(item.id, item.id === "ask");
-                    }}
-                    className={`py-1 whitespace-nowrap shrink-0 transition-colors ${
-                      isActive ? "text-[#E6CFA3]" : "text-[#F5EDE1]/75 hover:text-[#F5EDE1]"
-                    }`}
-                  >
-                    {item.label}
-                  </a>
-                );
-              })}
+              {[...leftNavLinks, ...rightNavLinks]
+                .filter((item) => item.id !== "rsvp")
+                .map((item) => {
+                  const targetView = item.targetView;
+                  const isActive = targetView
+                    ? activeView === targetView
+                    : activeView === "landing" && activeSection === item.id;
+                  return targetView ? (
+                    <a
+                      key={item.id}
+                      href={pathnameForView(targetView)}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        switchWorkspaceView(targetView);
+                      }}
+                      className={`py-1 uppercase whitespace-nowrap shrink-0 transition-colors ${
+                        isActive ? "text-[#E6CFA3]" : "text-[#F5EDE1]/75 hover:text-[#F5EDE1]"
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        scrollToSection(item.id, item.id === "ask");
+                      }}
+                      className={`py-1 whitespace-nowrap shrink-0 transition-colors ${
+                        isActive ? "text-[#E6CFA3]" : "text-[#F5EDE1]/75 hover:text-[#F5EDE1]"
+                      }`}
+                    >
+                      {item.label}
+                    </a>
+                  );
+                })}
             </nav>
           </div>
 
           {/* Right side controls at 1280px+ */}
-          <div className="hidden xl:flex items-center gap-2 shrink-0">
+          <div className="hidden xl:flex items-center gap-1.5 2xl:gap-2 shrink-0">
             <select
               aria-label="Language switch"
               value={languageHint}
               onChange={(e) => setLanguageHint(e.target.value)}
-              className="min-h-[38px] rounded-full border border-[#B8925A]/45 bg-[#14050A]/75 px-3 text-[11px] uppercase tracking-[0.14em] text-[#E6CFA3] hover:border-[#E6CFA3]"
+              className="min-h-[38px] rounded-full border border-[#B8925A]/45 bg-[#14050A]/75 px-2.5 2xl:px-3 text-[10.5px] 2xl:text-[11px] uppercase tracking-[0.11em] 2xl:tracking-[0.14em] text-[#E6CFA3] hover:border-[#E6CFA3] shrink-0"
             >
               <option value="auto">Auto</option>
               <option value="hi-IN">हिन्दी</option>
@@ -947,7 +949,7 @@ export default function App() {
               type="button"
               onClick={toggleElderMode}
               aria-pressed={elderMode}
-              className={`min-h-[38px] px-3 rounded-full border text-[11px] uppercase tracking-[0.14em] transition-colors whitespace-nowrap shrink-0 ${
+              className={`min-h-[38px] px-2.5 2xl:px-3 rounded-full border text-[10.5px] 2xl:text-[11px] uppercase tracking-[0.11em] 2xl:tracking-[0.14em] transition-colors whitespace-nowrap shrink-0 ${
                 elderMode
                   ? "border-[#F5EDE1] bg-[#F5EDE1] text-[#14050A] font-semibold"
                   : "border-[#B8925A]/45 text-[#F5EDE1]/85 hover:text-[#F5EDE1] hover:border-[#B8925A]"
@@ -959,19 +961,19 @@ export default function App() {
             <button
               type="button"
               onClick={() => scrollToSection("rsvp")}
-              className="min-h-[38px] px-3.5 rounded-full border border-[#B8925A] text-[11px] uppercase tracking-[0.18em] text-[#F5EDE1] hover:bg-[#B8925A]/15 transition-colors whitespace-nowrap shrink-0"
+              className="min-h-[38px] px-3 2xl:px-3.5 rounded-full border border-[#B8925A] text-[10.5px] 2xl:text-[11px] uppercase tracking-[0.14em] 2xl:tracking-[0.18em] text-[#F5EDE1] hover:bg-[#B8925A]/15 transition-colors whitespace-nowrap shrink-0"
             >
               RSVP
             </button>
 
             {/* Team Menu */}
-            <div ref={teamMenuRef} className="relative">
+            <div ref={teamMenuRef} className="relative shrink-0">
               <button
                 type="button"
                 aria-expanded={teamMenuOpen}
                 aria-haspopup="menu"
                 onClick={() => setTeamMenuOpen((v) => !v)}
-                className={`min-h-[38px] px-3 rounded-full border text-[11px] uppercase tracking-[0.16em] inline-flex items-center gap-1.5 transition-colors whitespace-nowrap shrink-0 ${
+                className={`min-h-[38px] px-2.5 2xl:px-3 rounded-full border text-[10.5px] 2xl:text-[11px] uppercase tracking-[0.12em] 2xl:tracking-[0.16em] inline-flex items-center gap-1.5 transition-colors whitespace-nowrap shrink-0 ${
                   activeView === "ops" || activeView === "tests" || activeView === "judge"
                     ? "border-[#E6CFA3] text-[#E6CFA3]"
                     : "border-[#B8925A]/30 text-[#F5EDE1]/75 hover:text-[#F5EDE1]"

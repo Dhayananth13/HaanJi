@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: haanji-wedding-concierge
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npx tsx server.ts
+    healthCheckPath: /api/card
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: SARVAM_API_KEY
+        sync: false
+      - key: FLAGSMITH_ENV_KEY
+        sync: false
+      - key: FLAGSMITH_ADMIN_KEY
+        sync: false
+      - key: FLAGSMITH_ENV_ID
+        sync: false
+      - key: NUDGEBEE_EVENT_WEBHOOK_URL
+        sync: false
+      - key: NUDGEBEE_API_TOKEN
+        sync: false
+      - key: HAANJI_HOST_KEY
+        generateValue: true
+      - key: HAANJI_OPS_TOKEN
+        generateValue: true
